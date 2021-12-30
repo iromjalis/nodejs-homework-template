@@ -1,3 +1,5 @@
+/* eslint-disable semi */
+/* eslint-disable quotes */
 const contactOperations = require("../../model/contacts");
 
 const listContacts = async (req, res, next) => {
