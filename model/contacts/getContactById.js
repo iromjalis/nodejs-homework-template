@@ -1,3 +1,5 @@
+/* eslint-disable semi */
+/* eslint-disable quotes */
 const listContacts = require("./listContacts");
 
 const getContactById = async (contactId) => {
