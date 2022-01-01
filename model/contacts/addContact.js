@@ -1,17 +1,12 @@
-/* eslint-disable semi */
-/* eslint-disable quotes */
-const fs = require("fs/promises");
-const { v4 } = require("uuidv4");
-
-const path = require("./contactsPath");
 const listContacts = require("./listContacts");
+const { v4 } = require("uuid");
+const updateFunction = require("./updateFunction");
 
-const addContact = async (body) => {
+const addContact = async (data) => {
   const contacts = await listContacts();
-  const newContact = { ...body, id: v4() };
-  await contacts.push(newContact);
-  await fs.writeFile(path, JSON.stringify(contacts));
-
+  const newContact = { ...data, id: v4() };
+  contacts.push(newContact);
+  await updateFunction(contacts);
   return newContact;
 };
 

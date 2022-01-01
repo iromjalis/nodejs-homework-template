@@ -1,33 +1,21 @@
-/* eslint-disable quotes */
-/* eslint-disable semi */
-const contactOperations = require("../../model/contacts");
-const { productSchema } = require("../../validation");
+const contactsOperations = require("../../model/products");
+const contactSchema = require("../../schemas");
 
-const addContact = async (req, res, next) => {
-  try {
-    const { error } = productSchema.validate(req.body);
-    if (error) {
-      return res.status(400).json({
-        status: "error",
-        code: 400,
-        message: "missing required name field",
-      });
-      // error.status = 400;
-      // error.message = "missing required name field";
-      // throw error;
-    }
+const addContact = async (req, res) => {
+  const { error } = contactSchema.validate(req.body);
 
-    const newContact = await contactOperations.addContact(req.body);
-    res.status(201).json({
-      status: "success",
-      code: 201,
-      data: {
-        newContact,
-      },
-    });
-  } catch (error) {
-    next(error);
+  if (error) {
+    error.status = 400;
+    throw error;
   }
-};
 
+  const result = await contactsOperations.add(req.body);
+  res.status(201).json({
+    stasus: "success",
+    code: 201,
+    data: {
+      result,
+    },
+  });
+};
 module.exports = addContact;

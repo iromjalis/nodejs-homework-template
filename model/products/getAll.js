@@ -1,10 +1,10 @@
 const fs = require("fs/promises");
 const filePath = require("./filePath");
 
-const listContacts = async () => {
+const getAll = async () => {
   const data = await fs.readFile(filePath);
-  const contacts = JSON.parse(data);
-  return contacts;
+  const products = JSON.parse(data);
+  return products;
 };
 
-module.exports = listContacts;
+module.exports = getAll;

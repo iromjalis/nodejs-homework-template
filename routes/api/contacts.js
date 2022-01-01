@@ -1,16 +1,20 @@
-const express = require('express')
-const ctrl = require('../../controllers/contacts')
+const express = require("express");
+const router = express.Router();
 
-const router = express.Router()
+const { validation, ctrlWrapper } = require("../../middlewares");
+const contactSchema = require("../../schemas");
+const { contacts: ctrl } = require("../../controllers");
 
-router.get('/', ctrl.listContacts)
+const validationMiddleware = validation(contactSchema); //
+//! controllers
+router.get("/", ctrlWrapper(ctrl.listContacts));
 
-router.get('/:contactId', ctrl.getContactById)
+router.get("/:contactId", ctrlWrapper(ctrl.getById));
 
-router.post('/', ctrl.addContact)
+router.post("/", validationMiddleware, ctrlWrapper(ctrl.addContact));
 
-router.delete('/:contactId', ctrl.removeContact)
+router.put("/", validationMiddleware, ctrlWrapper(ctrl.updateById));
 
-router.put('/:contactId', ctrl.updateContact)
+router.delete("/:contactId", ctrlWrapper(ctrl.removeContact));
 
-module.exports = router
+module.exports = router;
