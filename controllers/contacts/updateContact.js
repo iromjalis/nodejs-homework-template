@@ -1,11 +1,9 @@
-/* eslint-disable semi */
-/* eslint-disable quotes */
 const contactOperations = require("../../model/contacts");
-const { productSchema } = require("../../validation");
+const { contactsSchema } = require("../../schemas");
 
 const updateContact = async (req, res, next) => {
   try {
-    const { error } = productSchema.validate(req.body);
+    const { error } = contactsSchema.validate(req.body);
     if (error) {
       return res.status(400).json({
         status: "error",
@@ -16,6 +14,7 @@ const updateContact = async (req, res, next) => {
 
     const { contactId } = req.params;
     const result = await contactOperations.updateContact(contactId, req.body);
+    console.log("ctrl result: ", result);
     if (!result) {
       return res.status(404).json({
         status: "error",

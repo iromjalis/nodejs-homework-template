@@ -1,15 +1,11 @@
-const contactsOperations = require("../../model/products");
-const contactSchema = require("../../schemas");
+const contactOperations = require("../../model/contacts");
+// const contactSchema = require("../../schemas");
 
 const addContact = async (req, res) => {
-  const { error } = contactSchema.validate(req.body);
+  const body = req.body;
+  const result = await contactOperations.addContact(body);
+  console.log("ctrl result: ", result);
 
-  if (error) {
-    error.status = 400;
-    throw error;
-  }
-
-  const result = await contactsOperations.add(req.body);
   res.status(201).json({
     stasus: "success",
     code: 201,

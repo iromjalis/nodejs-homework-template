@@ -1,22 +1,16 @@
-/* eslint-disable semi */
-/* eslint-disable quotes */
-const fs = require("fs/promises");
-
-const contactsPath = require("./contactsPath");
 const listContacts = require("./listContacts");
+const updateFunction = require("./updateFunction");
 
 const removeContact = async (contactId) => {
-  const contactsList = await listContacts();
-  const idx = await contactsList.findIndex((el) => el.id === +contactId);
-
+  const contacts = await listContacts();
+  const idx = contacts.findIndex((item) => item.id === id);
   if (idx === -1) {
     return null;
   }
 
-  const removedContact = await contactsList.splice(idx, 1);
-  await fs.writeFile(contactsPath, JSON.stringify(contactsList));
-
-  return removedContact;
+  const newContacts = contacts.filter((_, index) => index !== idx);
+  await updateFunction(newContacts);
+  return contacts[idx];
 };
 
 module.exports = removeContact;

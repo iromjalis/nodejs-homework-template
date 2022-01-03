@@ -9,11 +9,11 @@ const validationMiddleware = validation(contactSchema); //
 //! controllers
 router.get("/", ctrlWrapper(ctrl.listContacts));
 
-router.get("/:contactId", ctrlWrapper(ctrl.getById));
+router.get("/:contactId", ctrlWrapper(ctrl.getContactById));
 
-router.post("/", validationMiddleware, ctrlWrapper(ctrl.addContact));
+router.post("/", ctrlWrapper(ctrl.addContact));
 
-router.put("/", validationMiddleware, ctrlWrapper(ctrl.updateById));
+router.put("/", ctrlWrapper(ctrl.updateById));
 
 router.delete("/:contactId", ctrlWrapper(ctrl.removeContact));
 

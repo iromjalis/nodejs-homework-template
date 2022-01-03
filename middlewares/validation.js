@@ -4,9 +4,8 @@ const validation = (schema) => {
     if (error) {
       error.status = 400;
       next(error);
-      return;
     }
-    next(error);
+    next();
   };
 };
-module.exports = validation
+module.exports = validation;
