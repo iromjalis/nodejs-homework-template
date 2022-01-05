@@ -9,6 +9,7 @@ const removeContact = async (contactId) => {
   }
 
   const newContacts = contacts.filter((_, index) => index !== idx);
+  console.log("newContacts: ", newContacts);
   await updateFunction(newContacts);
   return contacts[idx];
 };
