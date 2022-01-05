@@ -1,10 +1,7 @@
 const contactOperations = require("../../model/contacts");
-// const contactSchema = require("../../schemas");
 
 const addContact = async (req, res) => {
-  const body = req.body;
-  const result = await contactOperations.addContact(body);
-  console.log("ctrl result: ", result);
+  const result = await contactOperations.addContact(req.body);
 
   res.status(201).json({
     stasus: "success",
