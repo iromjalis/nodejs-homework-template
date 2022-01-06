@@ -1,10 +1,32 @@
 const express = require("express");
 
 const { validation, ctrlWrapper } = require("../../middlewares");
-const { contactSchema, statusFavoriteSchema } = require("../../models/contact");
+// const {contactSchema} = require('../../schemas')
+const { joiSchema, favoriteJoiSchema } = require("../../models/contact");
 const { contacts: ctrl } = require("../../controllers");
 
-const validateMiddleware = validation(contactSchema);
+// const validateMiddleware = validation(uiredcontactSchema);
+const validateMiddleware = validation(joiSchema);
+
+const router = express.Router();
+
+router.get("/", ctrlWrapper(ctrl.getAll));
+
+router.get("/:id", ctrlWrapper(ctrl.getById));
+
+router.post("/", validateMiddleware, ctrlWrapper(ctrl.add));
+
+router.put("/:id", validation(joiSchema), ctrlWrapper(ctrl.updateById));
+
+router.patch(
+  "/:id/favorite",
+  validation(favoriteJoiSchema),
+  ctrlWrapper(ctrl.updateStatus)
+); //обновляет конкретное поле
+
+router.delete("/:id", ctrlWrapper(ctrl.removeById));
+
+module.exports = router;
 /*
 validateMiddleware = (req, res, next)=> {
         const {error} = contactSchema.validate(req.body);
@@ -15,22 +37,3 @@ validateMiddleware = (req, res, next)=> {
         next()
     }
 */
-const router = express.Router();
-
-router.get("/", ctrlWrapper(ctrl.getAll));
-
-router.get("/:id", ctrlWrapper(ctrl.getById));
-
-router.post("/", validateMiddleware, ctrlWrapper(ctrl.add));
-
-router.put("/:id", validateMiddleware, ctrlWrapper(ctrl.updateById));
-
-router.patch(
-  "/:id/favorite",
-  validation(statusFavoriteSchema),
-  ctrlWrapper(ctrl.updateStatusContact)
-);
-
-router.delete("/:id", ctrlWrapper(ctrl.removeById));
-
-module.exports = router;

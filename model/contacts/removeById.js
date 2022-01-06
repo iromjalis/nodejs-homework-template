@@ -7,9 +7,11 @@ const removeById = async (id) => {
   if (idx === -1) {
     return null;
   }
-
-  const newContact = contacts.filter((_, index) => index !== idx);
-  await updateContacts(newContact);
+  // const [removeContact] = contacts.splice(idx, 1);
+  // await updateContacts(contacts);
+  // return removeContact
+  const newContacts = contacts.filter((_, index) => index !== idx);
+  await updateContacts(newContacts);
   return contacts[idx];
 };
 

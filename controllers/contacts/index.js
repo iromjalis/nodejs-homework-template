@@ -2,8 +2,8 @@ const getAll = require("./getAll");
 const getById = require("./getById");
 const add = require("./add");
 const updateById = require("./updateById");
+const updateStatus = require("./updateStatus");
 const removeById = require("./removeById");
-const updateStatusContact = require("./updateStatusContact");
 
 module.exports = {
   getAll,
@@ -11,5 +11,5 @@ module.exports = {
   add,
   updateById,
   removeById,
-  updateStatusContact,
+  updateStatus,
 };

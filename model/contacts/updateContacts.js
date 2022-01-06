@@ -1,5 +1,3 @@
-/* eslint-disable semi */
-/* eslint-disable quotes */
 const fs = require("fs/promises");
 
 const filePath = require("./filePath");
