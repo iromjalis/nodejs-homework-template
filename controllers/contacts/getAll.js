@@ -15,7 +15,7 @@ const getAll = async (req, res) => {
       skip: 0,
       limit: 2,
     }
-  ).populate("owner", "_id name email");
+  ).populate("owner", "_id email subscription");
 
   res.json({
     status: "success",

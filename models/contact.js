@@ -1,8 +1,6 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
-const codeRegexp = /^[0-9]{9}$/;
-
 const contactSchema = Schema(
   {
     name: {
@@ -19,16 +17,10 @@ const contactSchema = Schema(
       type: Boolean,
       default: false,
     },
-    code: {
-      type: String,
-      required: true,
-      unique: true,
-      match: codeRegexp,
-    },
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
-      required: true,
+      // required: true,
     },
   },
   { versionKey: false, timestamps: true }
@@ -42,7 +34,7 @@ const joiSchema = Joi.object({
 });
 
 const favoriteJoiSchema = Joi.object({
-  favorite: Joi.string().valid(true, false).required(),
+  favorite: Joi.bool().required(),
 });
 
 const Contact = model("contact", contactSchema);

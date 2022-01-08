@@ -10,17 +10,6 @@ const contactsRouter = require("./routes/api/contacts");
 
 const app = express();
 
-const SECRET_KEY = "UPgw2t7TVK";
-const payload = {
-  id: "123",
-};
-const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "1h" });
-try {
-  const result = jwt.verify(`${token}22`, SECRET_KEY);
-} catch (error) {
-  console.log(error.message);
-}
-
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
 app.use(logger(formatsLogger));

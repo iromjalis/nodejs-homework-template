@@ -4,10 +4,6 @@ const bcrypt = require("bcryptjs");
 
 const userSchema = Schema(
   {
-    name: {
-      type: String,
-      required: true,
-    },
     email: {
       type: String,
       required: true,
@@ -37,13 +33,14 @@ userSchema.methods.comparePassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 const User = model("user", userSchema);
+
 const registerJoiSchema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().required(),
   password: Joi.string().min(6).required(),
+  email: Joi.string().required(),
+  subscription: Joi.string(),
 });
 const loginJoiSchema = Joi.object({
-  name: Joi.string().required(),
+  email: Joi.string().required(),
   password: Joi.string().min(6).required(),
 });
 

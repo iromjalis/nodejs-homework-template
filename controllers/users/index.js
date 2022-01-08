@@ -1,2 +1,2 @@
-const { getCurrent } = require("./getCurrent");
+const getCurrent = require("./getCurrent");
 module.exports = { getCurrent };
