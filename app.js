@@ -4,6 +4,20 @@ const cors = require("cors");
 require("dotenv").config();
 // объект отправляет почту
 const sendEmail = require("./helpers");
+const nodemailer = require("nodemailer");
+
+const { META_PASSWORD } = process.env;
+const nodemailerConfig = {
+  host: "smtp.meta.ua",
+  port: 465, // 25, 465, 2255
+  secure: true,
+  auth: {
+    user: "iromjalis@gmail.com",
+    pass: META_PASSWORD,
+  },
+};
+
+const transporter = nodemailer.createTransport(nodemailerConfig);
 
 const email = {
   to: "hello@hello.com",
@@ -11,13 +25,14 @@ const email = {
   html: "<p>Новая заявка с сайта </p>",
 };
 sendEmail(email);
-//! helpers=> sendEmail
-// sgMail
-//   .send(email)
-//   .then(() => {
-//     console.log("Email send successfully");
-//   })
-//   .catch((error) => console.log(error.message));
+transporter.sendMail(email);
+
+transporter
+  .sendMail(email)
+  .then(() => {
+    console.log("Email send successfully");
+  })
+  .catch((error) => console.log(error.message));
 
 const authRouter = require("./routes/api/auth");
 const usersRouter = require("./routes/api/users");
